@@ -18,7 +18,7 @@ class MyTestCase(unittest.TestCase):
     def test_ok_report(self):
         self.match.update_data(self.coach_own.name, 1, 3, 4, 5)
         self.match.update_data(self.coach_away.name, 3, 1, 5, 4)
-        self.assertEqual("0,Adri,Adri Malo,1,3,4,5", self.match.get_report_trace())
+        self.assertEqual("T0,Adri,Adri Malo,1,3,4,5", self.match.get_report_trace())
 
     def test_not_ok(self):
         self.match.update_data(self.coach_own.name, 1, 4, 4, 5)

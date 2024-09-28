@@ -5,8 +5,8 @@ from modules.score.report import Report
 class Match:
     def __init__(self, index: int, coach_home: Coach, coach_away: Coach):
         self.index = index
-        self.report_home = Report(coach_home)
-        self.report_away = Report(coach_away)
+        self.report_home: Report = Report(coach_home)
+        self.report_away: Report = Report(coach_away)
 
     def is_coach_on_match(self, coach_name: str) -> bool:
         return self.report_home.coach.name == coach_name or self.report_away.coach.name == coach_name
@@ -19,7 +19,10 @@ class Match:
     def is_ok(self) -> bool:
         return (self.has_two_reports()
                 and self.report_home.td_owns == self.report_away.td_others
-                and self.report_home.td_others == self.report_away.td_owns)
+                and self.report_home.td_others == self.report_away.td_owns
+                and self.report_home.cas_owns == self.report_away.cas_others
+                and self.report_home.cas_others == self.report_away.cas_owns
+                )
 
     def has_two_reports(self) -> bool:
         return self.report_home.is_reported and self.report_away.is_reported
@@ -27,8 +30,11 @@ class Match:
     def get_report_trace(self) -> str:
         if not self.is_ok():
             return "ERROR"
-        return f"{self.index},{self.report_home.coach.name},{self.report_away.coach.name},{self.report_home.td_owns}," \
+        return f"T{self.index},{self.report_home.coach.name},{self.report_away.coach.name},{self.report_home.td_owns}," \
                f"{self.report_home.td_others},{self.report_home.cas_owns},{self.report_home.cas_others}"
+
+    def get_match_trace(self) -> str:
+        return f"T{self.index} {self.report_home.coach.name} vs {self.report_away.coach.name}"
 
     def get_report_by_coach(self, coach_name: str) -> Report:
         if self.report_home.coach.name == coach_name:
