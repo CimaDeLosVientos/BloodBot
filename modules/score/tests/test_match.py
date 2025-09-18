@@ -6,8 +6,8 @@ from modules.score.match import Match
 
 class MyTestCase(unittest.TestCase):
     def setUp(self):
-        self.coach_own = Coach("Adri", "-1")
-        self.coach_away = Coach("Adri Malo", "-1")
+        self.coach_own = Coach(0, "Adri", "-1")
+        self.coach_away = Coach(1, "Adri Malo", "-1")
         self.match = Match(0, self.coach_own, self.coach_away)
 
     def test_ok(self):

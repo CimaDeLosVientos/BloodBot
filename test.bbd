@@ -1,0 +1,113 @@
+<xml>
+<header>
+  <program>Score!</program>
+  <version>1.15</version>
+</header>
+<tournament>
+  <name></name>
+  <bonusperround included="false"></bonusperround>
+  <bonus1 included="false"></bonus1>
+  <bonus2 included="false"></bonus2>
+  <bonus3 included="false"></bonus3>
+  <win>3</win>
+  <draw>1</draw>
+  <loss>0</loss>
+  <concede>-1</concede>
+  <tiebreakerc></tiebreakerc>
+  <tiebreaker number="0">tbTotalScore</tiebreaker>
+  <tiebreaker number="1"></tiebreaker>
+  <tiebreaker number="2"></tiebreaker>
+  <tiebreaker number="3"></tiebreaker>
+  <tiebreaker number="4"></tiebreaker>
+  <tiebreaker number="5"></tiebreaker>
+  <tiebreaker number="6"></tiebreaker>
+  <tiebreaker number="7"></tiebreaker>
+  <tiebreaker number="8"></tiebreaker>
+  <tiebreaker number="9">tbRandom</tiebreaker>
+  <currentround>-1</currentround>
+  <teamcount>24</teamcount>
+  <groupmode>0</groupmode>
+  <groupscore>0</groupscore>
+  <teamrating>100</teamrating>
+  <comeback>3</comeback>
+  <comebacktype>0</comebacktype>
+  <kvalue>0.00</kvalue>
+  <showrace>true</showrace>
+  <shownafname>true</shownafname>
+  <shownafnumber>true</shownafnumber>
+  <showranking>true</showranking>
+  <showoppscore>false</showoppscore>
+  <showemail>false</showemail>
+  <teamaverage>false</teamaverage>
+  <includeinos>false</includeinos>
+  <manualdraw>false</manualdraw>
+  <namedefaultnaf>false</namedefaultnaf>
+  <organiser></organiser>
+</tournament>
+<teams>
+  <team id="0">
+    <teamname>Raider</teamname>
+    <coach>Adri</coach>
+    <nafname></nafname>
+    <nafnumber></nafnumber>
+    <race></race>
+    <nafrace>Unknown</nafrace>
+    <group></group>
+    <nafranking>0.00</nafranking>
+    <bonus1>-99999</bonus1>
+    <bonus2>-99999</bonus2>
+    <bonus3>-99999</bonus3>
+    <draw>0</draw>
+    <active>true</active>
+    <email></email>
+  </team>
+  <team id="1">
+    <teamname>Raider II</teamname>
+    <coach>Adri II</coach>
+    <nafname></nafname>
+    <nafnumber></nafnumber>
+    <race></race>
+    <nafrace>Unknown</nafrace>
+    <group></group>
+    <nafranking>0.00</nafranking>
+    <bonus1>-99999</bonus1>
+    <bonus2>-99999</bonus2>
+    <bonus3>-99999</bonus3>
+    <draw>0</draw>
+    <active>true</active>
+    <email></email>
+  </team>
+  <team id="2">
+    <teamname>Eeyores</teamname>
+    <coach>Mireya</coach>
+    <nafname></nafname>
+    <nafnumber></nafnumber>
+    <race></race>
+    <nafrace>Unknown</nafrace>
+    <group></group>
+    <nafranking>0.00</nafranking>
+    <bonus1>-99999</bonus1>
+    <bonus2>-99999</bonus2>
+    <bonus3>-99999</bonus3>
+    <draw>0</draw>
+    <active>true</active>
+    <email></email>
+  </team>
+  <team id="3">
+    <teamname></teamname>
+    <coach>Mireya II</coach>
+    <nafname></nafname>
+    <nafnumber></nafnumber>
+    <race></race>
+    <nafrace>Unknown</nafrace>
+    <group></group>
+    <nafranking>0.00</nafranking>
+    <bonus1>-99999</bonus1>
+    <bonus2>-99999</bonus2>
+    <bonus3>-99999</bonus3>
+    <draw>0</draw>
+    <active>true</active>
+    <email></email>
+  </team>
+</teams>
+</xml>

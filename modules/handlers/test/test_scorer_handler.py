@@ -88,6 +88,14 @@ class MyTestCase(unittest.TestCase):
                                                self.arguments['chat'])
         self.assertEqual(expected_response.url_command, response.url_command)
 
+        def link_user_without_parameter(self):
+            self.arguments['text'] = "/link_user"
+            response = self.scorer.link_user(self.arguments)
+            expected_response = SendMessageCommand(self.scorer.texts.link_id_without_parameter,
+                                                   self.arguments['chat'])
+            self.assertEqual(expected_response.url_command, response.url_command)
+
+
     def test_create_tournament_ok(self):
         self.arguments['text'] = "/link_user teams.csv"
         response = self.scorer.create_tournament(self.arguments)

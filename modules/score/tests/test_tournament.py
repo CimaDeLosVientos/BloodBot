@@ -136,6 +136,8 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(matches[39].report_home.coach, tournament.coaches_dict["Pececito"])
         self.assertEqual(matches[39].report_away.coach, tournament.coaches_dict["Coates"])
 
+        tournament.write_rounds()
+
 
 
 

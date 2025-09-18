@@ -1,18 +1,28 @@
 ############
 ## SCORER ##
 ############
+from _ast import arguments
+
 from ..score.tournament import Tournament
 from ..util.send_message_command import SendMessageCommand
 from ..util.telegram_command import TelegramCommand
-from ..util.telegram_methods import *
 from ..util.checkinator import *
 
+
+"""
+- linkar usuario
+  
+- mensajes de ayuda
+  
+- Crear bot
+"""
 
 class ScorerHandlerTexts:
     def __init__(self):
         self.no_tournament_active = "No hay ningún torneo en curso"
         self.link_id_successful = "¡Perfecto! Tu id ya está vinculado al entrenador {}"
-        self.link_id_fail = "¡Error! No existe ningún coach con el nombre {} registrado en el torneo. Asegurate de que has escrito correctamente tu nombre de entrenador"
+        self.link_id_fail = "¡Error! No existe ningún entrenador con el nombre {} registrado en el torneo. Asegurate de que has escrito correctamente tu nombre de entrenador"
+        self.link_id_without_parameter = "Debe incluir su nombre de entrenador después del comando. Ej: /link_user Iñigo Montoya"
         self.tournament_created_successful = "Torneo creado exitosamente"
         self.tournament_created_error = "El archivo de equipos {} no ha sido encontrado"
         self.round_created_successful = "La ronda se ha creado exitosamente"
@@ -24,7 +34,8 @@ class ScorerHandlerTexts:
         self.is_all_reported_true = "Todos los reportes han sido enviados"
         self.is_all_reported_false = "Faltan los reportes de {}"
         self.is_all_ok_true = "Todos los reportes coinciden"
-        self.is_all_ok_false = "Hay discrepancias en los reportes del partido {}"
+        self.is_all_ok_false = "Hay discrepancias en los reportes del partido\n{}"
+        self.scorer_trace = "Las filas de score son:{}"
 
 
 class ScorerHandler(object):
@@ -42,7 +53,8 @@ class ScorerHandler(object):
             '/set_round': self.set_round,
             '/report': self.report,
             '/is_all_reported': self.is_all_reported,
-            '/is_all_ok': self.is_all_ok
+            '/is_all_ok': self.is_all_ok,
+            '/get_scorer_trace': self.get_scorer_trace
         }
 
         self.commands_without_backslash = {
@@ -53,16 +65,22 @@ class ScorerHandler(object):
     def link_user(self, arguments) -> TelegramCommand:
         if self.tournament is None:
             return SendMessageCommand(self.texts.no_tournament_active, arguments['chat'], False)
-        coach_name = arguments['text'][arguments['text'].index(" ") + 1:]
+        coach_name = ""
+        try:
+            coach_name = arguments['text'][arguments['text'].index(" ") + 1:]
+            if coach_name == "":
+                raise ValueError
+        except:
+            return SendMessageCommand(self.texts.link_id_without_parameter, arguments['chat'], False)
         if coach_name in self.tournament.coaches_dict.keys():
             self.tournament.coaches_dict[coach_name].telegram_id = arguments['chat']
             return SendMessageCommand(self.texts.link_id_successful.format(coach_name), arguments['chat'], False)
         return SendMessageCommand(self.texts.link_id_fail.format(coach_name), arguments['chat'], False)
 
+    @checkinator(("filename", check_string), contains_command=True)
     def create_tournament(self, arguments) -> TelegramCommand:
-        filename = arguments['text'][arguments['text'].index(" ") + 1:]
         try:
-            self.tournament = Tournament(filename)
+            self.tournament = Tournament(arguments["filename"])
             return SendMessageCommand(self.texts.tournament_created_successful, arguments['chat'], False)
         except:
             return SendMessageCommand(self.texts.tournament_created_error, arguments['chat'], False)
@@ -103,3 +121,9 @@ class ScorerHandler(object):
             response_text = "\n".join([match.get_match_trace() for match in matches_are_not_ok])
             return SendMessageCommand(self.texts.is_all_ok_false.format(response_text), arguments['chat'], False)
         return SendMessageCommand(self.texts.is_all_ok_true, arguments['chat'], False)
+
+    def get_scorer_trace(self, arguments) -> TelegramCommand:
+        text = ""
+        for match in self.tournament.get_current_round().matches:
+            text += f"\n{match.get_report_trace()}"
+        return SendMessageCommand(self.texts.scorer_trace.format(text), arguments['chat'], False)
